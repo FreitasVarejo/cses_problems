@@ -16,21 +16,33 @@ const ll INF = 0x3f3f3f3f3f3f3f3f;
 #define _ ios::sync_with_stdio(false); cin.tie(nullptr);
 
 void solve(){
-    ll n,s ; cin >> n >> s;
+    ll n, m; cin >> n >> m;
 
-    vll v (n+1, 0);
+    vll v(n, 0);
 
-   v[n]= 1;
+    for(int i = 0; n > i; ++i){
+        cin >> v[i];
+    }
 
-    for(int i = n-1; i >= 0; i--){
-        for(int j = 0; 5 >= j; ++j){
-            if(n >= i+j+1){
-                v[i] = (v[i] + v[i+j+1])%MOD;
-            }
+    sort(v.begin(), v.end());
+
+    ll resp = 0;
+    ll i = 0, j = n-1;
+
+    while(j > i){
+        if(v[i]+v[j] <= m){
+            resp++;
+            i++;
+            j--;
+        }else{
+            resp++;
+            j--;
         }
     }
 
-    cout << v[0] << endl;
+    resp += (i == j);
+
+    cout << resp << endl;
 
     return;
 }
