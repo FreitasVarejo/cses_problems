@@ -1,45 +1,12 @@
-#include <bits/stdc++.h>
-#define eb emplace_back
-using namespace std;
-
-typedef long long ll;
-const ll INF = 0x3f3f3f3f3f3f3f3f;
-
-#define _ ios::sync_with_stdio(false); cin.tie(nullptr);
-
-void solve(){
-    ll n; cin >> n;
-    
-    vector <ll> v;
-
-    for(int i = 1; n > i; ++i){
-        ll x; cin >> x;
-        v.eb(x);
-    }
-
-    v.eb(0);
-
-    sort(v.begin(), v.end());
-
-    for(int i = 1; v.size() > i; ++i){
-        if(v[i] != v[i-1]+1){
-            cout << i << endl;
-            return;
-        }
-    }   
-
-    cout << n << endl;
-    
-    return;
+// Função externa
+def makeAdder(x: Int): Int => Int = {
+  // 'x' é capturado pela função interna
+  val innerFunction = (y: Int) => x + y
+  return innerFunction
 }
 
-int main(){_
-    int o = 1;
-    //cin >> o;
+val addFive = makeAdder(5) // 'makeAdder' retorna, mas 'x=5' persiste
+val addTen = makeAdder(10) // 'makeAdder' retorna, mas 'x=10' persiste
 
-    while(o--){
-        solve();
-    }
-
-    return  0;
-}
+println(addFive(2)) // Imprime 7 (usando o 'x=5' persistente)
+println(addTen(2))  // Imprime 12 (usando o 'x=10' persistente)
