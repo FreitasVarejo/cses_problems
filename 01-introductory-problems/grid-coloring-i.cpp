@@ -16,27 +16,25 @@ const ll MOD = 1e9+7;
 #define _ ios::sync_with_stdio(false); cin.tie(nullptr);
  
 void solve(){
-  ll n; cin >> n; 
- 
-  vvll v(128, vll(128, 0));
- 
-  for(int k = 0; 128 > k+1; ++k) v[k][k+1] = 1, v[k+1][k] = 1;
- 
-  for(ll p = 1; 7 > p; p++){
-    ll sz = (1<<p);
-    for(ll k = 0; 128 > k+sz; k += sz){
-      ll sum = sz*sz;
-      for(int i = 0; sz > i; i++){
-        for(int j = 0; sz > j; j++){
-          v[k+i+sz][k+j] = v[i][j] + sz;
-          v[k+i][k+j+sz] = v[i][j] + sz ;
-        }
-      }
+  ll n, m; cin >> n >> m;
+  vvll v(n, vll(m, 0));
+
+  for(int i = 0; n > i; ++i){
+    string str; cin >> str;
+    for(int j = 0; m > j; ++j){
+      set<ll> s;
+      for(int k = 0; 4 > k; k++) s.insert(k);
+
+      s.erase((int)(str[j]-'A'));
+      if(i > 0) s.erase(v[i-1][j]);
+      if(j > 0) s.erase(v[i][j-1]);
+
+      v[i][j] = *s.begin();
     }
   }
-  
-  for(int i = 0; n > i; i++){
-    for(int j = 0; n > j; j++) cout << v[i][j] << ' ';
+
+  for(int i = 0; n > i; ++i){
+    for(int j = 0; m > j; ++j) cout << (char)('A'+v[i][j]);
     cout << endl;
   }
 }
